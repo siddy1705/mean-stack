@@ -1,18 +1,28 @@
 const express = require('express');
 const router = express.Router();
+const mongoose = require('mongoose');
+const Products = require('../../models/products.js');
+const MongoClient = require('mongodb').MongoClient;
+const bodyparser = require('body-parser');  
 
-router.get('/', (req, res, next) => {
-    db.collection('products').save({name: "sid"})
-    res.status(200).json({
-        message: 'Handling GET requests to /products'
-    });
-});
+/* const db = MongoClient.connect('mongodb://127.0.0.1:27017/mean-stack', function(err, db) {
+    if(err) throw err;
+    console.log("connected to the mongoDB !");
+}); */
 
 router.post('/', (req, res, next) => {
-    res.status(201).json({
-        message: 'Handling POST requests to /products'
-    });
-    db.collection('products').save({name: "sid"})
+    console.log("request:", req)
+    Products.create({
+        name: req.body.name, 
+        description: req.body.description, 
+        price: req.body.price
+    }, (err, post) => {
+        if(err) throw err;
+        res.status(201).json({
+            message: "Product Created Successfully",
+            product: post
+        })
+    })
 });
 
 router.get('/:productId', (req, res, next) => {
