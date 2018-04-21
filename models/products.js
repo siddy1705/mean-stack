@@ -5,6 +5,6 @@ var ProductSchema = new mongoose.Schema({
   description: String,
   price: Number,
   created_at: { type: Date, default: Date.now },
-});
+}, { strict: false });
 
 module.exports = mongoose.model('Product', ProductSchema);
