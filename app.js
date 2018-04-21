@@ -8,11 +8,7 @@ const bodyParser = require('body-parser');
 const productRoutes = require('./api/routes/products');
 const orderRoutes = require('./api/routes/orders');
 
-var url = 'mongodb://localhost:27017/mean-stack';
-
-mongoose.connect('mongodb://localhost:27017/mean-stack')
-  .then(() =>  console.log('connection successful'))
-  .catch((err) => console.error(err));
+mongoose.connect('mongodb://localhost:27017/mean-stack').catch((err) => console.error(err));
 
 // Morgan to display results in console
 app.use(morgan('dev'));
